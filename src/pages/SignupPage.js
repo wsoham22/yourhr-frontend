@@ -1,14 +1,13 @@
 import React from 'react';
 import AuthForm from '../components/AuthForm';
 import { signupUser } from '../api';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-import './sign.css'; // Import CSS file
+import { Link } from 'react-router-dom'; 
+import './sign.css'; 
 
 const SignupPage = () => {
     const handleSignup = async (data) => {
         try {
             await signupUser(data);
-            // Handle successful signup, e.g., redirect to login page or show a success message
             window.location.href = '/login';
         } catch (error) {
             console.error('Failed to signup', error);

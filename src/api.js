@@ -7,7 +7,11 @@ export const signupUser = async (data) => {
     for (const key in data) {
         formData.append(key, data[key]);
     }
-    const response = await axios.post(`${API_URL}/auth/signup`, formData);
+    const response = await axios.post(`${API_URL}/auth/signup`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
     return response.data;
 };
 
