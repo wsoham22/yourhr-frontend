@@ -9,7 +9,7 @@ const ProfilePage = () => {
     useEffect(() => {
         const fetchResume = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/user/profile', {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/profile`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -17,8 +17,7 @@ const ProfilePage = () => {
                 const userResume = response.data.resume;
                 console.log(userResume);
                 if (userResume && userResume.path) {
-                    // Construct the full URL for the resume
-                    setResumeUrl(`http://localhost:5000/${userResume.path}`);
+                    setResumeUrl(`${process.env.REACT_APP_API_URL}/${userResume.path}`);
                 }
             } catch (error) {
                 console.error('Failed to fetch resume', error);
@@ -37,7 +36,7 @@ const ProfilePage = () => {
         formData.append('resume', resume);
 
         try {
-            await axios.post('http://localhost:5000/api/user/upload', formData, {
+            await axios.post(`${process.env.REACT_APP_API_URL}/user/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -45,14 +44,14 @@ const ProfilePage = () => {
             });
             alert('Resume uploaded successfully');
             // Fetch updated resume URL
-            const response = await axios.get('http://localhost:5000/api/user/profile', {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/profile`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
             });
             const userResume = response.data.resume;
             if (userResume && userResume.path) {
-                setResumeUrl(`http://localhost:5000/${userResume.path}`);
+                setResumeUrl(`${process.env.REACT_APP_API_URL}/${userResume.path}`);
             }
         } catch (error) {
             console.error('Failed to upload resume', error);
