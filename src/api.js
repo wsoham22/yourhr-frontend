@@ -3,16 +3,17 @@ import axios from 'axios';
 const API_URL = 'https://yourhr-backend01-z33d.onrender.com/api';
 
 export const signupUser = async (data) => {
-    const formData = new FormData();
-    for (const key in data) {
-        formData.append(key, data[key]);
+    try {
+        const response = await axios.post(`${API_URL}/auth/signup`, data, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error during signup:', error.response || error.message);
+        throw error;
     }
-    const response = await axios.post(`${API_URL}/auth/signup`, formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-    });
-    return response.data;
 };
 
 export const loginUser = async (data) => {
