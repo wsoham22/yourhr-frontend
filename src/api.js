@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://yourhr-backend01-z33d.onrender.com/api';
 
 export const signupUser = async (data) => {
     const formData = new FormData();
